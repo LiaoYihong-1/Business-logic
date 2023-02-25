@@ -1,0 +1,5 @@
+- change swagger dependency
+- HttpServletRequest - exclude
+- @RequestBody, @RestController, @PathParam, @QueryParam
+- @Service
+- https://restfulapi.net/resource-naming/
