@@ -17,9 +17,9 @@ public class Transaction {
     @Column(nullable = false,name="seller")
     private Integer seller;
     @Column(nullable = false,name="customer")
-    private Integer costomer;
+    private Integer customer;
     @Column(nullable = false,name="amount")
-    private Integer mount;
+    private Integer amount;
     @Column(nullable = false,name = "status")
     private String status;
 }
