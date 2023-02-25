@@ -1,5 +1,6 @@
 package com.example.demo.Dao.Transaction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
     @Column(nullable = false,name="device")
     private Integer device;
