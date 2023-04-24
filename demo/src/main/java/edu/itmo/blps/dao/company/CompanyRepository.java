@@ -16,6 +16,7 @@ public interface CompanyRepository extends JpaRepository<Company,Integer> {
     List<String> findAllNames();
 
     Optional<Company> findByNameAndPassword(String password, String name);
+    Optional<Company> findByName(String name);
 
     boolean existsByName(String name);
 }
