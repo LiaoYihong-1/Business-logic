@@ -1,10 +1,13 @@
 package edu.itmo.blps.controller;
 
 
+import edu.itmo.blps.dao.customer.User;
 import edu.itmo.blps.dto.Account;
 import edu.itmo.blps.dto.Response;
 import edu.itmo.blps.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,14 +15,18 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 	@Autowired
 	AccountService accountService;
-
-	@PostMapping("/login")
-	public Response login(@RequestBody Account request){
-		return accountService.login(request.getName(), request.getPassword(), request.getType());
+	@PostMapping("/user/login")
+	public ResponseEntity<?> login(@RequestBody User user){
+		return accountService.login(user);
+	}
+	@PostMapping("/hello")
+	@PreAuthorize("hasAuthority('company')")
+	public String hello(){
+		return "Hello\n";
 	}
 
-	@PostMapping("/register")
-	public Response signup(@RequestBody Account request){
+	@PostMapping("/user/signup")
+	public ResponseEntity<?> signup(@RequestBody Account request){
 		return accountService.signup(request.getName(), request.getPassword(), request.getType());
 	}
 }

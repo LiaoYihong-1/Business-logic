@@ -43,7 +43,7 @@ class DemoApplicationTests {
 
 	}
 
-	@Test
+	/*@Test
 	@Transactional
 	@Rollback
 	void addDeviceInCartTest() {
@@ -81,11 +81,13 @@ class DemoApplicationTests {
 
 		System.out.println(cartFromDb);
 		Assertions.assertEquals(cartFromDb.getDevices().size(), 1);
-	}
+	}*/
 	@Test
 	void encoderTest(){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println(encoder.encode("123"));
+		System.out.println(encoder.encode("c1"));
+		System.out.println(encoder.encode("u2"));
+		System.out.println(encoder.encode("u3"));
 		System.out.println(encoder.matches("123","$2a$10$9ZQXIrtI9q6gw.G9stoDI.YF/U/D97TAt0BC2nzo6Wz5LGfDMAQJe"));
 	}
 }

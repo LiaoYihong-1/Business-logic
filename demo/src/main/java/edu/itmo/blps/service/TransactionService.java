@@ -35,9 +35,9 @@ public class TransactionService {
 	public Response addDevice(Device device){
 		try {
 			deviceRepository.save(device);
-			return new Response(true, "Success");
+			return new Response(true, "Success",null);
 		} catch (Exception e) {
-			return new Response(false, "Make sure that your account is still available");
+			return new Response(false, "Make sure that your account is still available",null);
 		}
 	}
 
@@ -49,18 +49,18 @@ public class TransactionService {
 			deviceRepository.findDeviceByNameAndCompany(device.getName(), device.getCompany())
 					.orElseThrow(() -> new IllegalArgumentException("Device doesn't exist"));
 			cartRepository.save(cart);
-			return new Response(true, "Success");
+			return new Response(true, "Success",null);
 		}catch (Exception e){
-			return new Response(false, "No such kind of device. Maybe this device is deleted.");
+			return new Response(false, "No such kind of device. Maybe this device is deleted.",null);
 		}
 	}
 
 	public Response addTransaction(Transaction transaction) {
 		try {
 			transactionRepository.save(transaction);
-			return new Response(true, "Success");
+			return new Response(true, "Success",null);
 		} catch (Exception e) {
-			return new Response(false, "Two possibility: You account is not available\nThis device is not deleted");
+			return new Response(false, "Two possibility: You account is not available\nThis device is not deleted",null);
 		}
 	}
 
