@@ -1,14 +1,10 @@
 package edu.itmo.blps.service;
 
-<<<<<<< HEAD
-=======
-import edu.itmo.blps.dao.cart.Cart;
-import edu.itmo.blps.dao.cart.CartRepository;
->>>>>>> parent of 9c9ce79 (spring security finised)
 import edu.itmo.blps.dao.company.Company;
 import edu.itmo.blps.dao.company.CompanyRepository;
 import edu.itmo.blps.dao.customer.User;
 import edu.itmo.blps.dao.customer.UserRepository;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import edu.itmo.blps.domain.SecurityUser;
 <<<<<<< HEAD
@@ -17,19 +13,27 @@ import edu.itmo.blps.domain.SecurityUser;
 >>>>>>> parent of fb00c3a (start security)
 import edu.itmo.blps.dto.Account;
 >>>>>>> parent of 9c9ce79 (spring security finised)
+=======
+import edu.itmo.blps.domain.MyUserDetails;
+import edu.itmo.blps.domain.SecurityUser;
+>>>>>>> parent of 14631e4 (back)
 import edu.itmo.blps.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 import org.springframework.transaction.annotation.Transactional;
 import utils.JwtUtils;
-=======
->>>>>>> parent of 9c9ce79 (spring security finised)
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
-<<<<<<< HEAD
 public class AccountService implements LoginService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -100,6 +104,7 @@ public class AccountService implements LoginService {
 		}else {
 			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
+<<<<<<< HEAD
 =======
 public class AccountService {
 	@Autowired
@@ -153,5 +158,7 @@ public class AccountService {
 			return new Response(false, "Wrong from code, will be fixed");
 		return new Response(true, "Success");
 >>>>>>> parent of fb00c3a (start security)
+=======
+>>>>>>> parent of 14631e4 (back)
 	}
 }

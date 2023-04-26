@@ -42,13 +42,8 @@ class DemoApplicationTests {
 
 	}
 
-<<<<<<< HEAD
 	/*@Test
 	@Transactional(value = "bitronixTransactionManager")
-=======
-	@Test
-	@Transactional
->>>>>>> parent of 9c9ce79 (spring security finised)
 	@Rollback
 	void addDeviceInCartTest() {
 		Account account = new Account("customer", "user1000", "kokl");
@@ -85,6 +80,18 @@ class DemoApplicationTests {
 
 		System.out.println(cartFromDb);
 		Assertions.assertEquals(cartFromDb.getDevices().size(), 1);
+<<<<<<< HEAD
 	}
 
+=======
+	}*/
+	@Test
+	void encoderTest(){
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		System.out.println(encoder.encode("c1"));
+		System.out.println(encoder.encode("u2"));
+		System.out.println(encoder.encode("u3"));
+		System.out.println(encoder.matches("123","$2a$10$9ZQXIrtI9q6gw.G9stoDI.YF/U/D97TAt0BC2nzo6Wz5LGfDMAQJe"));
+	}
+>>>>>>> parent of 14631e4 (back)
 }

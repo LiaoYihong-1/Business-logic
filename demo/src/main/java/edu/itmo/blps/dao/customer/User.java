@@ -16,7 +16,7 @@ public class User {
 	@JsonIgnore
 	private Integer id;
 
-	@Column(nullable = false, name="username", length = 20)
+	@Column(nullable = false, name="name", length = 20)
 	private String username;
 
 	@Column(nullable = false,name="password")
