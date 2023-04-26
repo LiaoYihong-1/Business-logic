@@ -1,21 +1,25 @@
 package edu.itmo.blps.controller;
 
 
-import edu.itmo.blps.dao.customer.User;
 import edu.itmo.blps.dto.Account;
 import edu.itmo.blps.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> parent of 9c9ce79 (spring security finised)
 
 @RestController
 @RequestMapping("/")
 public class AccountController {
 	@Autowired
+<<<<<<< HEAD
 	private AccountService accountService;
 
 	@PostMapping("/user/login")
@@ -27,10 +31,17 @@ public class AccountController {
 	@PreAuthorize("hasAuthority('company')")
 	public String hello(){
 		return "Hello\n";
+=======
+	AccountService accountService;
+
+	@PostMapping("/login")
+	public Response login(@RequestBody Account request){
+		return accountService.login(request.getName(), request.getPassword(), request.getType());
+>>>>>>> parent of 9c9ce79 (spring security finised)
 	}
 
-	@PostMapping("/user/signup")
-	public ResponseEntity<?> signup(@RequestBody Account request){
+	@PostMapping("/register")
+	public Response signup(@RequestBody Account request){
 		return accountService.signup(request.getName(), request.getPassword(), request.getType());
 	}
 }
