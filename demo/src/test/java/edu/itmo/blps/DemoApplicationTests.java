@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -87,10 +86,5 @@ class DemoApplicationTests {
 		System.out.println(cartFromDb);
 		Assertions.assertEquals(cartFromDb.getDevices().size(), 1);
 	}
-	@Test
-	void encoderTest(){
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println(encoder.encode("123"));
-		System.out.println(encoder.matches("123","$2a$10$9ZQXIrtI9q6gw.G9stoDI.YF/U/D97TAt0BC2nzo6Wz5LGfDMAQJe"));
-	}
+
 }
