@@ -24,24 +24,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Bean
-    public PasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
-    @Autowired
-    public TokenFilter filter;
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-                and().
-                authorizeRequests().antMatchers("/user/login").anonymous().antMatchers("/user/signup").anonymous()
-                .anyRequest().authenticated();
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-    }
+	@Bean
+	public PasswordEncoder encoder(){
+		return new BCryptPasswordEncoder();
+	}
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Autowired
+	private TokenFilter filter;
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.authorizeRequests().antMatchers("/user/login", "/user/signup").anonymous()
+				.anyRequest().authenticated();
+		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 }

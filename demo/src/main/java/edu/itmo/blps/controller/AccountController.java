@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class AccountController {
 	@Autowired
-	AccountService accountService;
+	private AccountService accountService;
+
 	@PostMapping("/user/login")
 	public ResponseEntity<?> login(@RequestBody User user){
 		return accountService.login(user);
 	}
+
 	@PostMapping("/hello")
 	@PreAuthorize("hasAuthority('company')")
 	public String hello(){
