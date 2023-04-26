@@ -16,10 +16,9 @@ import utils.XmlUtils;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class MyLoginUserDetailsService implements UserDetailsService {

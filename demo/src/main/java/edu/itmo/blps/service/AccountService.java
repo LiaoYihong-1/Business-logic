@@ -1,13 +1,11 @@
 package edu.itmo.blps.service;
 
-import edu.itmo.blps.dao.cart.Cart;
 import edu.itmo.blps.dao.company.Company;
 import edu.itmo.blps.dao.company.CompanyRepository;
 import edu.itmo.blps.dao.customer.User;
 import edu.itmo.blps.dao.customer.UserRepository;
 import edu.itmo.blps.domain.MyUserDetails;
 import edu.itmo.blps.domain.SecurityUser;
-import edu.itmo.blps.domain.SecurityUserSet;
 import edu.itmo.blps.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import utils.JwtUtils;
 
 import java.util.HashMap;
@@ -28,9 +27,9 @@ public class AccountService implements LoginService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired
-	CompanyRepository companyRepository;
+	private CompanyRepository companyRepository;
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	public ResponseEntity<Response> login(User user){
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
@@ -61,6 +60,7 @@ public class AccountService implements LoginService {
 		return true;
 	}
 
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<Response> signup(String name, String password, String type) {
 		Response response = new Response(true, "Success",null);
 		if (!checkString(name)||!checkString(password)||!checkString(type)) {

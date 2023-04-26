@@ -10,6 +10,7 @@ import edu.itmo.blps.dto.Account;
 import edu.itmo.blps.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +33,8 @@ public class TransactionService {
 		return true;
 	}
 
+	@Deprecated
+	@Transactional(value = "bitronixTransactionManager")
 	public Response addDevice(Device device){
 		try {
 			deviceRepository.save(device);
@@ -41,6 +44,8 @@ public class TransactionService {
 		}
 	}
 
+	@Deprecated
+	@Transactional(value = "bitronixTransactionManager")
 	public Response addCart(Account account, Device device){
 		Cart cart = new Cart();
 		cart.setUser(account.asUser());
@@ -55,6 +60,7 @@ public class TransactionService {
 		}
 	}
 
+	@Transactional(value = "bitronixTransactionManager")
 	public Response addTransaction(Transaction transaction) {
 		try {
 			transactionRepository.save(transaction);

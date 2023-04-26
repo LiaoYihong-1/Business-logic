@@ -44,7 +44,7 @@ class DemoApplicationTests {
 	}
 
 	/*@Test
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	@Rollback
 	void addDeviceInCartTest() {
 		Account account = new Account("customer", "user1000", "kokl");
@@ -58,7 +58,7 @@ class DemoApplicationTests {
 	}
 
 	@Test
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	@Rollback
 	void removeDeviceFromCartTest() {
 		Account account = new Account("customer", "user1000", "kokl");
