@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface DeviceRepository extends JpaRepository<Device,Integer> {
 	Optional<Device> findDeviceByNameAndCompany(String name, Company company);
 	List<Device> findAllByCompany(Company company);
-	List<Device> findAllByCompany_Id(Integer companyId);
+
+	@Override
+	Optional<Device> findById(Integer integer);
 }

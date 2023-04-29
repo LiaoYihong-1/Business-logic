@@ -2,11 +2,18 @@ package edu.itmo.blps.service;
 
 import edu.itmo.blps.dao.cart.Cart;
 import edu.itmo.blps.dao.cart.CartRepository;
+import edu.itmo.blps.dao.customer.UserRepository;
 import edu.itmo.blps.dao.device.Device;
+import edu.itmo.blps.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,65 +21,33 @@ import java.util.Optional;
 public class CartService {
 
 	@Autowired
-	private DeviceService deviceService;
+	private UserRepository userRepository;
 
 	@Autowired
 	private CartRepository cartRepository;
-
-	public Cart saveCart(Cart cart) {
-		return cartRepository.save(cart);
+	@Transactional
+	public ResponseEntity<?> getCartByUsernameOrThrow(Integer id) {
+		List<Cart> cartList = userRepository.findUserById(id).get().getMyCarts();
+		return ResponseEntity.ok(cartList);
 	}
-
-	public Cart getCartByUsernameOrThrow(String username) {
-		return cartRepository.findByUser_Username(username)
-				.orElseThrow(() -> new EntityNotFoundException("Cart was not found for this username=" + username));
+	@Transactional
+	public ResponseEntity<?> addCart(Integer user,Integer device){
+		Cart cart = new Cart();
+		cart.setCustomer(user);
+		cart.setDevice(device);
+		cartRepository.save(cart);
+		return ResponseEntity.ok(cart);
 	}
-
-	public Cart findByUsername(String username) {
-		return cartRepository.findByUser_Username(username)
-				.orElseThrow(() -> new EntityNotFoundException("Cart was not found for this username=" + username));
-	}
-
-	public Cart putDeviceInCart(Device device, String username) {
-		Cart cart = findByUsername(username);
-		cart.addDevice(deviceService.findDevice(device));
-		return cartRepository.save(cart);
-	}
-
-	public Cart removeDeviceFromCart(Device device, String username) {
-		device = deviceService.findDevice(device);
-		Cart cart = findByUsername(username);
-		if (cart.getDevices().contains(device)) {
-			cart.removeDevice(device);
-			return cartRepository.save(cart);
+	@Transactional
+	public ResponseEntity<?> deleteCart(Integer user,Integer device){
+		Optional<Cart> cartOptional = cartRepository.findCartsByCustomerAndDevice(user,device);
+		Cart cart;
+		try{
+			cart = cartOptional.get();
+		}catch (NoSuchElementException e){
+			return ResponseEntity.badRequest().body("Failed delete");
 		}
-		else
-			throw new EntityNotFoundException("Cart doesn't contain device: " + device);
-	}
-	
-	
-	public boolean existDeviceInCart(Integer deviceId, String username) {
-		return findByUsername(username).getDevices().contains(deviceService.getDevice(deviceId));
-	}
-
-	public Optional<Device> getDeviceIfPresentInCart(Integer deviceId, String username) {
-		Device deviceFromDb = deviceService.getDevice(deviceId);
-		if (Objects.isNull(deviceFromDb))
-			return Optional.empty();
-		Cart cart = findByUsername(username);
-		if (cart.getDevices().contains(deviceFromDb))
-			return Optional.of(deviceFromDb);
-		return Optional.empty();
-	}
-
-	public Cart removeDeviceFromCart(Integer deviceId, String username) {
-		Device device = deviceService.getDeviceOrThrow(deviceId);
-		Cart cart = findByUsername(username);
-		if (cart.getDevices().contains(device)) {
-			cart.removeDevice(device);
-			return cartRepository.save(cart);
-		}
-		else
-			throw new EntityNotFoundException("Cart doesn't contain device: " + deviceId);
+		cartRepository.delete(cart);
+		return ResponseEntity.ok("Success");
 	}
 }

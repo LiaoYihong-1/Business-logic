@@ -1,16 +1,13 @@
 package edu.itmo.blps.service;
 
-import edu.itmo.blps.dao.cart.Cart;
 import edu.itmo.blps.dao.company.Company;
 import edu.itmo.blps.dao.company.CompanyRepository;
 import edu.itmo.blps.dao.customer.User;
 import edu.itmo.blps.dao.customer.UserRepository;
 import edu.itmo.blps.domain.MyUserDetails;
 import edu.itmo.blps.domain.SecurityUser;
-import edu.itmo.blps.domain.SecurityUserSet;
 import edu.itmo.blps.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import utils.JwtUtils;
+import javax.transaction.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 @Service
-public class AccountService implements LoginService {
+public class AccountService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired
@@ -32,11 +30,12 @@ public class AccountService implements LoginService {
 	@Autowired
 	UserRepository userRepository;
 
-	public ResponseEntity<Response> login(User user){
+	@Transactional
+	public ResponseEntity<?> login(User user){
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
 		Authentication authentication = authenticationManager.authenticate(token);
 		if(Objects.isNull(authentication)){
-			return new ResponseEntity<>(new Response(false,"fail",null),HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body("Fail login");
 		}
 		MyUserDetails details = (MyUserDetails) authentication.getPrincipal();
 		SecurityUser securityUser = details.getUser();
@@ -50,10 +49,9 @@ public class AccountService implements LoginService {
 		String jwtToken = JwtUtils.createToken(userId);
 		Map<String,String> tokenMap = new HashMap<>();
 		tokenMap.put("token",jwtToken);
-		Response r= new Response(true,"Success",tokenMap);
-		return new ResponseEntity<>(r,HttpStatus.OK);
+		return ResponseEntity.ok(tokenMap);
 	}
-
+	@Transactional
 	public boolean checkString(String s){
 		if ((s == null) | (Objects.equals(s, ""))){
 			return false;
@@ -61,7 +59,7 @@ public class AccountService implements LoginService {
 		return true;
 	}
 
-	public ResponseEntity<Response> signup(String name, String password, String type) {
+	public ResponseEntity<?> signup(String name, String password, String type) {
 		Response response = new Response(true, "Success",null);
 		if (!checkString(name)||!checkString(password)||!checkString(type)) {
 			response.setSuccess(false);
@@ -89,9 +87,9 @@ public class AccountService implements LoginService {
 			response.setExtra(null);
 		}
 		if(response.getSuccess()) {
-			return new ResponseEntity<>(response, HttpStatus.OK);
+			return ResponseEntity.ok("Success");
 		}else {
-			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body(response.getDescription());
 		}
 	}
 }

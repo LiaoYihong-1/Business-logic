@@ -18,45 +18,8 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private Integer id;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinTable(name = "devices_in_cart",
-			joinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "device_id", referencedColumnName = "id"))
-	private List<Device> devices;
-
-	Cart setUserId(Integer id) {
-		user = new User(id);
-		return this;
-	}
-
-	public void addDevice(Device device) {
-		if (Objects.isNull(devices))
-			devices = new ArrayList<>();
-		devices.add(device);
-	}
-
-	public void removeDevice(Device device) {
-		if (!Objects.isNull(devices))
-			devices.remove(device);
-	}
-
-	public Cart setId(Integer id) {
-		this.id = id;
-		return this;
-	}
-
-	public Cart setUser(User user) {
-		this.user = user;
-		return this;
-	}
-
-	public Cart setDevices(List<Device> devices) {
-		this.devices = devices;
-		return this;
-	}
+	@Column(nullable = false,name="customerid")
+	private Integer customer;
+	@Column(nullable = false,name="deviceid")
+	private Integer device;
 }

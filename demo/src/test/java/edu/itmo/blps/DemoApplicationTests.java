@@ -1,6 +1,7 @@
 package edu.itmo.blps;
 
 import edu.itmo.blps.dao.cart.Cart;
+import edu.itmo.blps.dao.cart.CartRepository;
 import edu.itmo.blps.dao.company.Company;
 import edu.itmo.blps.dao.company.CompanyRepository;
 import edu.itmo.blps.dao.device.Device;
@@ -38,10 +39,8 @@ class DemoApplicationTests {
 	@Autowired
 	private CompanyRepository companyRepository;
 
-	@Test
-	void contextLoads() {
-
-	}
+	@Autowired
+	private CartRepository cartRepository;
 
 	/*@Test
 	@Transactional

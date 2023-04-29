@@ -17,16 +17,20 @@ public class Transaction {
 	@JsonIgnore
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "device_id")
+	@Column(nullable = false,name="device")
+	private Integer deviceId;
+
+	@OneToOne
+	@JoinColumn(name = "device",insertable = false, updatable = false)
 	private Device device;
 
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
+	@OneToOne
+	@JoinColumn(name = "seller")
 	private Company seller;
 
-	@ManyToOne
-	@JoinColumn(name = "customer_id")
+	@OneToOne
+	@JoinColumn(name = "customer")
+	@JsonIgnore
 	private User user;
 
 	@Column(nullable = false,name="amount")
@@ -34,4 +38,5 @@ public class Transaction {
 
 	@Column(nullable = false,name = "status")
 	private String status;
+
 }

@@ -1,10 +1,12 @@
 package edu.itmo.blps.dao.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import edu.itmo.blps.dao.cart.Cart;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,7 +18,7 @@ public class User {
 	@JsonIgnore
 	private Integer id;
 
-	@Column(nullable = false, name="name", length = 20)
+	@Column(nullable = false, name="username", length = 20)
 	private String username;
 
 	@Column(nullable = false,name="password")
@@ -27,7 +29,7 @@ public class User {
 		this.password = password;
 	}
 
-	public User(Integer id) {
-		this.id = id;
-	}
+	@OneToMany(targetEntity = Cart.class, cascade=CascadeType.ALL)
+	@JoinColumn(name="customerid")
+	List<Cart> myCarts;
 }

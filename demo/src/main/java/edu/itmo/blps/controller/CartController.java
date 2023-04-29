@@ -1,14 +1,13 @@
 package edu.itmo.blps.controller;
-
-import edu.itmo.blps.dao.cart.Cart;
-import edu.itmo.blps.dao.device.Device;
+import edu.itmo.blps.domain.SecurityUser;
 import edu.itmo.blps.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/{username}/cart")
+@RequestMapping("/cart")
 @RestController
 public class CartController {
 
@@ -16,20 +15,22 @@ public class CartController {
 	private CartService cartService;
 
 	@GetMapping
-	@PreAuthorize("#username == authentication.name")
-	public ResponseEntity<Cart> getCart(@PathVariable String username){
-		return ResponseEntity.ok(cartService.getCartByUsernameOrThrow(username));
+	@PreAuthorize("hasAuthority('user')")
+	public ResponseEntity<?> getCart(){
+		SecurityUser user = (SecurityUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return cartService.getCartByUsernameOrThrow(user.getId());
+	}
+	@PostMapping("/{device}")
+	@PreAuthorize("hasAuthority('user')")
+	public ResponseEntity<?> addCart(@PathVariable Integer device){
+		SecurityUser user = (SecurityUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return cartService.addCart(user.getId(),device);
 	}
 
-	@PutMapping("/put-device")
-	@PreAuthorize("#username == authentication.name")
-	public ResponseEntity<Cart> putDeviceToCart(@RequestBody Device device, @PathVariable String username) {
-		return ResponseEntity.ok(cartService.putDeviceInCart(device, username));
-	}
-
-	@DeleteMapping("/remove-device/{deviceId}")
-	@PreAuthorize("#username == authentication.name")
-	public ResponseEntity<Cart> removeDeviceFromCart(@PathVariable Integer deviceId, @PathVariable String username) {
-		return ResponseEntity.ok(cartService.removeDeviceFromCart(deviceId, username));
+	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('user')")
+	public ResponseEntity<?> deleteCart(@PathVariable Integer id){
+		SecurityUser user = (SecurityUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return cartService.deleteCart(user.getId(),id);
 	}
 }

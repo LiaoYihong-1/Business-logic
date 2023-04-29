@@ -16,7 +16,6 @@ import javax.persistence.*;
 public class Device {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	@Column(name = "id")
 	private Integer id;
 
@@ -26,15 +25,14 @@ public class Device {
 	@Column(nullable = false, name = "name")
 	private String name;
 
-	private String description;
-
 	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@JoinColumn(name = "companyid")
+	@JsonIgnore
 	private Company company;
 
 	@Column(nullable = false,name="price")
 	private Integer price;
 
-//	@Column(nullable = false,name="available")
-//	private Boolean available;
+	@Column(nullable = false,name="country")
+	private String country;
 }

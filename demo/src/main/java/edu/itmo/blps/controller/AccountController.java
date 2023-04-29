@@ -19,11 +19,6 @@ public class AccountController {
 	public ResponseEntity<?> login(@RequestBody User user){
 		return accountService.login(user);
 	}
-	@PostMapping("/hello")
-	@PreAuthorize("hasAuthority('company')")
-	public String hello(){
-		return "Hello\n";
-	}
 
 	@PostMapping("/user/signup")
 	public ResponseEntity<?> signup(@RequestBody Account request){

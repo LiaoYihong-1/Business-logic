@@ -20,6 +20,7 @@ public class Company {
 	private String name;
 
 	@Column(nullable = false,name="password")
+	@JsonIgnore
 	private String password;
 
 	public Company(String name, String password) {
