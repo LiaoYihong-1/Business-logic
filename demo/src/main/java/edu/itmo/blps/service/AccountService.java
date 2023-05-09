@@ -14,8 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import utils.JwtUtils;
-import javax.transaction.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class AccountService {
 	@Autowired
 	UserRepository userRepository;
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<?> login(User user){
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
 		Authentication authentication = authenticationManager.authenticate(token);
@@ -51,7 +51,6 @@ public class AccountService {
 		tokenMap.put("token",jwtToken);
 		return ResponseEntity.ok(tokenMap);
 	}
-	@Transactional
 	public boolean checkString(String s){
 		if ((s == null) | (Objects.equals(s, ""))){
 			return false;
@@ -59,6 +58,7 @@ public class AccountService {
 		return true;
 	}
 
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<?> signup(String name, String password, String type) {
 		Response response = new Response(true, "Success",null);
 		if (!checkString(name)||!checkString(password)||!checkString(type)) {

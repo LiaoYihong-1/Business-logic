@@ -22,4 +22,7 @@ public class Cart {
 	private Integer customer;
 	@Column(nullable = false,name="deviceid")
 	private Integer device;
+	@OneToOne
+	@JoinColumn(name="deviceid",insertable = false, updatable = false)
+	private Device deviceObject;
 }

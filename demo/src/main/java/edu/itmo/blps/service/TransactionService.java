@@ -1,7 +1,5 @@
 package edu.itmo.blps.service;
 
-import edu.itmo.blps.dao.cart.CartRepository;
-import edu.itmo.blps.dao.company.Company;
 import edu.itmo.blps.dao.company.CompanyRepository;
 import edu.itmo.blps.dao.customer.User;
 import edu.itmo.blps.dao.customer.UserRepository;
@@ -14,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Objects;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
@@ -33,7 +29,7 @@ public class TransactionService {
 	@Autowired
 	private CompanyRepository companyRepository;
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	@PreAuthorize("hasAuthority('user')")
 	public ResponseEntity<?> getTransaction(Integer userId){
 		Optional<User> userOptional = userRepository.findUserById(userId);
@@ -45,7 +41,7 @@ public class TransactionService {
 		return  ResponseEntity.ok(transactionRepository.findByUser(user));
 	}
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	@PreAuthorize("hasAuthority('user')")
 	public ResponseEntity<?> addTransaction(Integer deviceId,Integer amount, Integer customer){
 		Optional<User> userOptional = userRepository.findUserById(customer);

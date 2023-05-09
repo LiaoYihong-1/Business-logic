@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Users>
     <User>
-        <id>2</id>
-        <username>u2</username>
-        <password>$2a$10$Vi/OJfupecyXPMz8usSyjO5DhbH3SRP610uaHaebOThOnA637ucrC</password>
+        <id>1</id>
+        <username>u1</username>
+        <password>$2a$10$vhLOoz1lYZtzBcrjM.z37O./15k019rNr3zl5brcLRNtxXPVFQUbO</password>
         <type>user</type>
     </User>
 </Users>

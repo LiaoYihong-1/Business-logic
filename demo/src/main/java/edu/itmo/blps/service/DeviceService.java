@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
@@ -24,14 +24,14 @@ public class DeviceService {
 	@Autowired
 	private CompanyRepository companyRepository;
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	public List<Device> getAllDevices(Integer pageNo, Integer pageSize, String sortBy) {
 		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC,sortBy));
 		Page<Device> pagedResult = deviceRepository.findAll(paging);
 		return pagedResult.getContent();
 	}
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<?> getDevice(Integer id) {
 		Optional<Device> o = deviceRepository.findById(id);
 		if(o.isPresent()){
@@ -41,19 +41,7 @@ public class DeviceService {
 		}
 	}
 
-	@Transactional
-	public Device getDeviceOrThrow(Integer id) {
-		return deviceRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Device with id = " + id + " was not found"));
-	}
-
-	@Transactional
-	public Device getDeviceOrThrow(Company company, String deviceName) {
-		return deviceRepository.findDeviceByNameAndCompany(deviceName, company)
-				.orElseThrow(() -> new EntityNotFoundException("Device was not found: " + deviceName));
-	}
-
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<?> getAllByCompanyId(Integer id) {
 		Optional<Company> o = companyRepository.findById(id);
 		Company c;
@@ -69,7 +57,7 @@ public class DeviceService {
 		return deviceRepository.findAllByCompany_Id(companyId);
 	}*/
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<?> saveDevice(Device device,Integer id) {
 		Optional<Company> company = companyRepository.findById(id);
 		try{
@@ -82,7 +70,7 @@ public class DeviceService {
 		return ResponseEntity.ok("Success");
 	}
 
-	@Transactional
+	@Transactional(value = "bitronixTransactionManager")
 	public ResponseEntity<?> deleteDevice(Integer deviceId,Integer id) {
 		Optional<Device> deviceOptional = deviceRepository.findById(deviceId);
 		if(deviceOptional.isPresent()){
