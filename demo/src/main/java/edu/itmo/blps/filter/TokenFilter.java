@@ -56,7 +56,7 @@ public class TokenFilter extends OncePerRequestFilter {
         Integer id = Integer.parseInt(matcherType.replaceAll(""));
         String type = matcherId.replaceAll("");
         /**
-         * read from xml
+         * read user from xml by token
          */
         SecurityUserSet users;
         try {

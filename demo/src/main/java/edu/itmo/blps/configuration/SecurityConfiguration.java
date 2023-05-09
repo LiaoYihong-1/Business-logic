@@ -36,6 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 and().
                 authorizeRequests().antMatchers("/user/login","/user/signup","/device","/device/byDevice/**","/device/byCompany/**").anonymous()
                 .anyRequest().authenticated();
+        /**
+         * important!
+         * This filter makes sure that application can use token to authorize
+         */
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
 
