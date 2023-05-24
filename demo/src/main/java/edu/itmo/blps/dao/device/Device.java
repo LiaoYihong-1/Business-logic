@@ -35,4 +35,7 @@ public class Device {
 
 	@Column(nullable = false,name="country")
 	private String country;
+
+	@Column(nullable = false,name="available")
+	private Boolean available;
 }

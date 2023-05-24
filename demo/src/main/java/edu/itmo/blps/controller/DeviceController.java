@@ -3,6 +3,7 @@ package edu.itmo.blps.controller;
 import edu.itmo.blps.dao.device.Device;
 import edu.itmo.blps.domain.SecurityUser;
 import edu.itmo.blps.service.DeviceService;
+import edu.itmo.blps.service.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,5 +46,15 @@ public class DeviceController {
 	public ResponseEntity<?> deleteDevice(@PathVariable Integer device) {
 		SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return deviceService.deleteDevice(device,user.getId());
+	}
+
+	@Autowired
+	private KafkaProducerService producerService;
+
+	@PostMapping("/{device}/{status}")
+	@PreAuthorize("hasAuthority('company')")
+	public ResponseEntity<?> changeDevice(@PathVariable Integer device,@PathVariable String status) {
+		SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return deviceService.changeDevice(device,status,user.getId());
 	}
 }

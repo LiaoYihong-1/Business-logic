@@ -2,6 +2,7 @@ package edu.itmo.blps.dao.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.itmo.blps.dao.cart.Cart;
+import edu.itmo.blps.dao.message.Message;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +33,8 @@ public class User {
 	@OneToMany(targetEntity = Cart.class, cascade=CascadeType.ALL)
 	@JoinColumn(name="customerid")
 	List<Cart> myCarts;
+
+	@OneToMany(targetEntity = Message.class, cascade=CascadeType.ALL)
+	@JoinColumn(name="customer")
+	List<Message> myMessages;
 }

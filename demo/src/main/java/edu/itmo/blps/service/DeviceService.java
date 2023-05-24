@@ -23,7 +23,8 @@ public class DeviceService {
 	private DeviceRepository deviceRepository;
 	@Autowired
 	private CompanyRepository companyRepository;
-
+	@Autowired
+	private KafkaProducerService kafkaProducerService;
 	@Transactional(value = "bitronixTransactionManager")
 	public List<Device> getAllDevices(Integer pageNo, Integer pageSize, String sortBy) {
 		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC,sortBy));
@@ -82,6 +83,26 @@ public class DeviceService {
 			deviceRepository.delete(device);
 		}else {
 			return ResponseEntity.badRequest().body("No such a device");
+		}
+		return ResponseEntity.ok("Success");
+	}
+	@Transactional(value = "bitronixTransactionManager")
+	public ResponseEntity<?> changeDevice(Integer deviceId,String status,Integer id) {
+		Optional<Device> deviceOptional = deviceRepository.findById(deviceId);
+		Boolean oldStatus;
+		if(deviceOptional.isPresent()){
+			Device device = deviceOptional.get();
+			if(!device.getCompany().getId().equals(id)){
+				return ResponseEntity.badRequest().body("You are trying to change a device," +
+						"which is not belong to your company");
+			}
+			oldStatus = device.getAvailable();
+			deviceRepository.changeDeviceStatus(deviceId,Boolean.valueOf(status));
+		}else {
+			return ResponseEntity.badRequest().body("No such a device");
+		}
+		if(!Boolean.valueOf(status).equals(oldStatus)) {
+			kafkaProducerService.sendMessage(status+":"+deviceId);
 		}
 		return ResponseEntity.ok("Success");
 	}
