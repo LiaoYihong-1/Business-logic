@@ -1,7 +1,7 @@
 package edu.itmo.blps.configuration;
 
 import edu.itmo.blps.service.MyScheduledJob;
-import org.apache.commons.lang3.ArrayUtils;
+
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +23,7 @@ public class QuartzConfig {
                 .withIdentity("start_of_day", "start_of_day")
                 .startNow()
                 // 每天0点执行
+                // factory.setCronExpression("0 0 0 * * ?");
                 .withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?"))
                 .build();
         return trigger;

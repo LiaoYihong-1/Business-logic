@@ -51,14 +51,13 @@ public class MessageService {
     }
     @Transactional(value = "bitronixTransactionManager")
     public void receiveMessage() {
-        //System.out.println(message);
 
         // 拉取消息
         ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(2000));
 
         // 处理消息
         for (ConsumerRecord<String, String> record : records) {
-            System.out.println("Received message1: " + record.value());
+            System.out.println("Received message 1: " + record.value());
             Set<Integer> users = new HashSet<>();
             List<Cart> cartList = cartRepository.findAll();
             String[] split = record.value().split(":");
@@ -81,6 +80,7 @@ public class MessageService {
             }
         }
     }
+
     @Transactional(value = "bitronixTransactionManager",rollbackFor = Exception.class)
     public void minLifeOfMessage(){
         List<Message> messages = messageRepository.findAll();

@@ -89,7 +89,7 @@ public class TransactionService {
 
 		// 处理消息
 		for (ConsumerRecord<String, String> record : records) {
-			System.out.println("Received message: " + record.value());
+			System.out.println("Received message 2: " + record.value());
 			Set<Integer> users = new HashSet<>();
 			List<Transaction> transactions = transactionRepository.findAll();
 			String[] split = record.value().split(":");
@@ -102,7 +102,7 @@ public class TransactionService {
 					users.add(t.getUser().getId());
 					if(!Boolean.valueOf(split[0])) {
 						transactionRepository.changeTransactionStatus(t.getId(),"Hung up");
-						m.setText("Sorry, your divice is not available because of some unpredicted\nYou can cancel it or wait for some days\n");
+						m.setText("Sorry, your device is not available because of some unpredicted\nYou can cancel it or wait for some days\n");
 						messageRepository.save(m);
 					}else if(t.getStatus().equals("Hung up")){
 						transactionRepository.changeTransactionStatus(t.getId(),"On process");
