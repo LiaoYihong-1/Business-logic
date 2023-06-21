@@ -28,8 +28,6 @@ public final class KafkaProducerService {
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
         ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, "Status of device changed", message);//Topic Key Value
         producer.send(record);
-        messageService.receiveMessage();
-        transactionService.receiveMessage();
         // flush data - synchronous
         producer.flush();
 
