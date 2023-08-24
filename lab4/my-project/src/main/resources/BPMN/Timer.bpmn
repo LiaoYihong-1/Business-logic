@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_16o8u2i" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="Timer" isExecutable="true">
+    <bpmn:startEvent id="Event_1yqypbv" name="every day( here to simulate set every 15 s)">
+      <bpmn:outgoing>Flow_0s0b037</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1ihyxf3">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0/15 * * * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0s0b037" sourceRef="Event_1yqypbv" targetRef="Activity_0200q87" />
+    <bpmn:endEvent id="Event_11r17pc">
+      <bpmn:incoming>Flow_1na4ncu</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1na4ncu" sourceRef="Activity_0200q87" targetRef="Event_11r17pc" />
+    <bpmn:serviceTask id="Activity_0200q87" name="reduce life of message" camunda:type="external" camunda:topic="reduceLifeOfMessage">
+      <bpmn:incoming>Flow_0s0b037</bpmn:incoming>
+      <bpmn:outgoing>Flow_1na4ncu</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Timer">
+      <bpmndi:BPMNShape id="Event_1yqypbv_di" bpmnElement="Event_1yqypbv">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="127" y="145" width="89" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11r17pc_di" bpmnElement="Event_11r17pc">
+        <dc:Bounds x="392" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1umi51n_di" bpmnElement="Activity_0200q87">
+        <dc:Bounds x="240" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0s0b037_di" bpmnElement="Flow_0s0b037">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="240" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1na4ncu_di" bpmnElement="Flow_1na4ncu">
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="392" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

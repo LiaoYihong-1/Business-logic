@@ -1,0 +1,53 @@
+{
+  "components": [
+    {
+      "label": "User Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0qd132v",
+        "columns": null
+      },
+      "id": "Field_0fn0rss",
+      "key": "username"
+    },
+    {
+      "label": "Password",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_04lpm51",
+        "columns": null
+      },
+      "id": "Field_0uvt8pv",
+      "key": "password"
+    },
+    {
+      "values": [
+        {
+          "label": "Company",
+          "value": "company"
+        },
+        {
+          "label": "User",
+          "value": "user"
+        }
+      ],
+      "label": "Identity",
+      "type": "select",
+      "layout": {
+        "row": "Row_04w6aia",
+        "columns": null
+      },
+      "id": "Field_106wo8j",
+      "key": "identity"
+    }
+  ],
+  "type": "default",
+  "id": "Login_Form",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 9
+}

@@ -1,0 +1,34 @@
+{
+  "components": [
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "label": "Do you have an account",
+      "type": "select",
+      "layout": {
+        "row": "Row_0nji0q3",
+        "columns": null
+      },
+      "id": "Field_1slahgy",
+      "key": "hasAccount",
+      "defaultValue": "true"
+    }
+  ],
+  "type": "default",
+  "id": "Check_Account_Form",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 9
+}

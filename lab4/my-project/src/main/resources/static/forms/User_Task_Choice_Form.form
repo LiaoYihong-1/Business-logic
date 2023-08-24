@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "values": [
+        {
+          "label": "Read messages",
+          "value": "readMessage"
+        },
+        {
+          "label": "Buy device",
+          "value": "buyDevice"
+        }
+      ],
+      "label": "What you gonna do",
+      "type": "select",
+      "layout": {
+        "row": "Row_1nffr5i",
+        "columns": null
+      },
+      "id": "Field_1co17gn",
+      "key": "choice"
+    }
+  ],
+  "type": "default",
+  "id": "User_Task_Choice_Form",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 9
+}

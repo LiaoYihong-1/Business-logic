@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "label": "Device ID",
+      "type": "number",
+      "layout": {
+        "row": "Row_0ywa4hk",
+        "columns": null
+      },
+      "id": "Field_0o1lp92",
+      "key": "deviceId"
+    },
+    {
+      "values": [
+        {
+          "label": "True",
+          "value": "true"
+        },
+        {
+          "label": "False",
+          "value": "false"
+        }
+      ],
+      "label": "Available",
+      "type": "select",
+      "layout": {
+        "row": "Row_1261dco",
+        "columns": null
+      },
+      "id": "Field_1cucvai",
+      "key": "deviceAvailable"
+    }
+  ],
+  "type": "default",
+  "id": "Set_Device_Form",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 9
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_05in089" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="Proccess_shopping" name="Proccess_shopping" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0cpwzvg</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="shopping_cart" name="加入购物车" camunda:type="external" camunda:topic="shopping_cart">
+      <bpmn:incoming>Flow_0cpwzvg</bpmn:incoming>
+      <bpmn:outgoing>Flow_00fz94r</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0cpwzvg" sourceRef="StartEvent_1" targetRef="shopping_cart" />
+    <bpmn:serviceTask id="pay" name="付款" camunda:type="external" camunda:topic="pay">
+      <bpmn:incoming>Flow_00fz94r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1btpxfd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_00fz94r" sourceRef="shopping_cart" targetRef="pay" />
+    <bpmn:serviceTask id="delivery" name="送货" camunda:type="external" camunda:topic="delivery">
+      <bpmn:incoming>Flow_1btpxfd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1muxkk0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1btpxfd" sourceRef="pay" targetRef="delivery" />
+    <bpmn:endEvent id="Event_0kgqsl6">
+      <bpmn:incoming>Flow_1muxkk0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1muxkk0" sourceRef="delivery" targetRef="Event_0kgqsl6" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Proccess_shopping">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00x6ag0_di" bpmnElement="shopping_cart">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0320fcf_di" bpmnElement="pay">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1naiw7o_di" bpmnElement="delivery">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kgqsl6_di" bpmnElement="Event_0kgqsl6">
+        <dc:Bounds x="752" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0cpwzvg_di" bpmnElement="Flow_0cpwzvg">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00fz94r_di" bpmnElement="Flow_00fz94r">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1btpxfd_di" bpmnElement="Flow_1btpxfd">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1muxkk0_di" bpmnElement="Flow_1muxkk0">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="752" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

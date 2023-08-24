@@ -1,0 +1,37 @@
+{
+  "components": [
+    {
+      "values": [
+        {
+          "label": "Publish new device",
+          "value": "publish"
+        },
+        {
+          "label": "Check my device",
+          "value": "check"
+        },
+        {
+          "label": "Change status of my device",
+          "value": "change"
+        }
+      ],
+      "label": "What you want to do",
+      "type": "select",
+      "layout": {
+        "row": "Row_1j8910v",
+        "columns": null
+      },
+      "id": "Field_1qk4m05",
+      "key": "choice"
+    }
+  ],
+  "type": "default",
+  "id": "Task_Choice_Form",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 9
+}

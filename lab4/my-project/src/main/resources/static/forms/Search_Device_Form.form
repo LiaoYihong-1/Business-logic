@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "ID",
+      "type": "number",
+      "layout": {
+        "row": "Row_13pquji",
+        "columns": null
+      },
+      "id": "Field_1pv4077",
+      "key": "device"
+    }
+  ],
+  "type": "default",
+  "id": "Search_Device_Form",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "schemaVersion": 9
+}

@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "Amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_0ay3xgf",
+        "columns": null
+      },
+      "id": "Field_0vupzv9",
+      "key": "amount"
+    }
+  ],
+  "type": "default",
+  "id": "buy",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.12.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 9
+}
