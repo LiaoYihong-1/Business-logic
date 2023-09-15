@@ -93,7 +93,6 @@ public class CamundaServerConfiguration {
                     messageRepository.updateMessageByLife(id, life);
                 }
             }
-            System.out.println("sdasd");
             externalTaskService.complete(externalTask);
         };
     }

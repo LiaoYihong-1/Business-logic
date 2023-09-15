@@ -142,13 +142,15 @@ public class CamundaUserConfiguration {
         return (externalTask, externalTaskService) ->{
             String device = externalTask.getVariable("device") + "";
             Optional<Device> o = deviceRepository.findById(Integer.valueOf(device));
+            Map<String,Object> m =  Variables.createVariables();
             if(o.isPresent()){
                 System.out.println(o.get());
+                m.put("available",o.get().getAvailable().toString());
+                m.put("found","true");
             }else {
                 System.out.println("No device with such id");
+                m.put("found","false");
             }
-            Map<String,Object> m =  Variables.createVariables();
-            m.put("available",o.get().getAvailable().toString());
             externalTaskService.complete(externalTask,m);
         };
     }
